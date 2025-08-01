@@ -10,40 +10,23 @@ interface Props {
 
 const Footer: React.FC<Props> = ({ className = "" }) => {
   const socialLinks = [
-    { icon: Github, label: "GitHub", href: "https://github.com" },
-    { icon: Twitter, label: "Twitter", href: "https://twitter.com" },
-    { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com" },
-    { icon: Mail, label: "メール", href: "mailto:contact@example.com" },
+    { icon: Github, label: "GitHub", href: "https://github.com/your-username" },
+    { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/in/your-profile" },
+    { icon: Twitter, label: "Twitter", href: "https://twitter.com/your-handle" },
+    { icon: Mail, label: "メール", href: "mailto:your.email@example.com" },
   ];
 
-  const footerLinks = [
-    {
-      title: "プロダクト",
-      links: [
-        { label: "機能", href: "/features" },
-        { label: "価格", href: "/pricing" },
-        { label: "ドキュメント", href: "/docs" },
-        { label: "API", href: "/api" },
-      ],
-    },
-    {
-      title: "会社",
-      links: [
-        { label: "私たちについて", href: "/about" },
-        { label: "ブログ", href: "/blog" },
-        { label: "キャリア", href: "/careers" },
-        { label: "ニュース", href: "/news" },
-      ],
-    },
-    {
-      title: "サポート",
-      links: [
-        { label: "ヘルプセンター", href: "/help" },
-        { label: "お問い合わせ", href: "/contact" },
-        { label: "ステータス", href: "/status" },
-        { label: "コミュニティ", href: "/community" },
-      ],
-    },
+  const contactInfo = [
+    { label: "メール", value: "your.email@example.com", href: "mailto:your.email@example.com" },
+    { label: "電話", value: "+81-90-1234-5678", href: "tel:+819012345678" },
+    { label: "所在地", value: "東京, 日本", href: null },
+  ];
+
+  const quickLinks = [
+    { label: "自己紹介", href: "#about" },
+    { label: "記事", href: "#articles" },
+    { label: "プロジェクト", href: "#projects" },
+    { label: "お問い合わせ", href: "#contact" },
   ];
 
   return (
@@ -62,9 +45,9 @@ const Footer: React.FC<Props> = ({ className = "" }) => {
           padding: `${theme.spacing.xl} ${theme.spacing.md}`,
         }}
       >
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Company Info */}
-          <div className="lg:col-span-1">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Personal Info */}
+          <div className="md:col-span-1">
             <h3
               className="text-lg font-bold mb-4"
               style={{
@@ -74,7 +57,7 @@ const Footer: React.FC<Props> = ({ className = "" }) => {
                 marginBottom: theme.spacing.md,
               }}
             >
-              Linear Design
+              フロントエンドエンジニア
             </h3>
             <p
               className="mb-4"
@@ -85,8 +68,8 @@ const Footer: React.FC<Props> = ({ className = "" }) => {
                 marginBottom: theme.spacing.md,
               }}
             >
-              モダンで最小限、目的に特化したデザインシステムで、
-              生産性を向上させるために構築されています。
+              モダンなWebアプリケーション開発に情熱を注ぐエンジニアです。
+              ユーザー体験の向上と開発効率の最適化を追求しています。
             </p>
 
             {/* Social Links */}
@@ -123,25 +106,25 @@ const Footer: React.FC<Props> = ({ className = "" }) => {
             </div>
           </div>
 
-          {/* Footer Links */}
-          {footerLinks.map((section, index) => (
-            <div key={index} className="">
-              <h4
-                className="font-semibold mb-4"
-                style={{
-                  color: theme.colors.text.primary,
-                  fontSize: theme.typography.fontSize.base,
-                  fontWeight: theme.typography.fontWeight.semibold,
-                  marginBottom: theme.spacing.md,
-                }}
-              >
-                {section.title}
-              </h4>
-              <ul className="space-y-2">
-                {section.links.map((link, linkIndex) => (
-                  <li key={linkIndex}>
+          {/* Contact Info */}
+          <div className="md:col-span-1">
+            <h4
+              className="font-semibold mb-4"
+              style={{
+                color: theme.colors.text.primary,
+                fontSize: theme.typography.fontSize.base,
+                fontWeight: theme.typography.fontWeight.semibold,
+                marginBottom: theme.spacing.md,
+              }}
+            >
+              連絡先
+            </h4>
+            <ul className="space-y-2">
+              {contactInfo.map((contact, index) => (
+                <li key={index}>
+                  {contact.href ? (
                     <a
-                      href={link.href}
+                      href={contact.href}
                       className="transition-colors duration-200"
                       style={{
                         color: theme.colors.text.secondary,
@@ -152,17 +135,63 @@ const Footer: React.FC<Props> = ({ className = "" }) => {
                         e.currentTarget.style.color = theme.colors.text.primary;
                       }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.color =
-                          theme.colors.text.secondary;
+                        e.currentTarget.style.color = theme.colors.text.secondary;
                       }}
                     >
-                      {link.label}
+                      <span className="font-medium">{contact.label}:</span> {contact.value}
                     </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+                  ) : (
+                    <span
+                      style={{
+                        color: theme.colors.text.secondary,
+                        fontSize: theme.typography.fontSize.sm,
+                      }}
+                    >
+                      <span className="font-medium">{contact.label}:</span> {contact.value}
+                    </span>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Quick Links */}
+          <div className="md:col-span-1">
+            <h4
+              className="font-semibold mb-4"
+              style={{
+                color: theme.colors.text.primary,
+                fontSize: theme.typography.fontSize.base,
+                fontWeight: theme.typography.fontWeight.semibold,
+                marginBottom: theme.spacing.md,
+              }}
+            >
+              クイックリンク
+            </h4>
+            <ul className="space-y-2">
+              {quickLinks.map((link, index) => (
+                <li key={index}>
+                  <a
+                    href={link.href}
+                    className="transition-colors duration-200"
+                    style={{
+                      color: theme.colors.text.secondary,
+                      fontSize: theme.typography.fontSize.sm,
+                      transition: theme.animations.transition.normal,
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.color = theme.colors.text.primary;
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.color = theme.colors.text.secondary;
+                    }}
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
         {/* Bottom Section */}
@@ -182,7 +211,7 @@ const Footer: React.FC<Props> = ({ className = "" }) => {
                 fontSize: theme.typography.fontSize.sm,
               }}
             >
-              © 2024 Linear Design.
+              © 2024 フロントエンドエンジニア ポートフォリオ.
               <Heart
                 size={16}
                 className="mx-1"
@@ -193,40 +222,14 @@ const Footer: React.FC<Props> = ({ className = "" }) => {
           </div>
 
           <div className="flex space-x-6">
-            <a
-              href="/privacy"
-              className="transition-colors duration-200"
+            <p
               style={{
                 color: theme.colors.text.secondary,
                 fontSize: theme.typography.fontSize.sm,
-                transition: theme.animations.transition.normal,
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.color = theme.colors.text.primary;
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.color = theme.colors.text.secondary;
               }}
             >
-              プライバシーポリシー
-            </a>
-            <a
-              href="/terms"
-              className="transition-colors duration-200"
-              style={{
-                color: theme.colors.text.secondary,
-                fontSize: theme.typography.fontSize.sm,
-                transition: theme.animations.transition.normal,
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.color = theme.colors.text.primary;
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.color = theme.colors.text.secondary;
-              }}
-            >
-              利用規約
-            </a>
+              "コードで未来を創造する"
+            </p>
           </div>
         </div>
       </div>
